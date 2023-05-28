@@ -132,33 +132,33 @@ Spi -> MP5, MP5NC, HP5, SpellDmg, Healing
 	-- Base stat conversions
 	showAPFromStr = false,
 	showBlockValueFromStr = false,
-	
+
 	showCritFromAgi = true,
 	showDodgeFromAgi = true,
 	showAPFromAgi = false,
 	showRAPFromAgi = false,
 	showArmorFromAgi = false,
 	showHealingFromAgi = false, -- Druid - Nurturing Instinct
-	
+
 	showHealthFromSta = false,
 	showSpellDmgFromSta = false, -- Warlock
-	
+
 	showManaFromInt = false,
 	showSpellCritFromInt = true,
 	showSpellDmgFromInt = false, -- Druid, Mage, Paladin, Shaman, Warlock
 	showHealingFromInt = false, -- Druid, Paladin, Shaman
-	showMP5FromInt = false, 
+	showMP5FromInt = false,
 	showMP5NCFromInt = false,
 	showRAPFromInt = false, -- Hunter
 	showArmorFromInt = false, -- Mage
-	
+
 	showMP5FromSpi = false, -- Druid, Mage, Priest
 	showMP5NCFromSpi = false,
 	showHP5FromSpi = false,
 	showSpellDmgFromSpi = false, -- Priest
 	showHealingFromSpi = false, -- Priest
 	showSpellCritFromSpi = false, -- Mage
-	
+
 	showAPFromArmor = false, -- Warrior, DK
 	------------------
 	-- Stat Summary --
@@ -2147,8 +2147,8 @@ if class == "DRUID" then
 	options.args.stat.args.spi.args.dmg = { -- Improved Moonkin Form (Rank 3) - 1,19
 		type = 'toggle',
 		width = "full",
-		name = L["Show Spell Damage"].." ("..GetSpellInfo(48384)..")",                
-		desc = L["Show Spell Damage from Spirit"].." ("..GetSpellInfo(48384)..")",    
+		name = L["Show Spell Damage"].." ("..GetSpellInfo(48384)..")",
+		desc = L["Show Spell Damage from Spirit"].." ("..GetSpellInfo(48384)..")",
 		arg = "showSpellDmgFromSpi",
 		get = getProfileOption,
 		set = setProfileOptionAndClearCache,
@@ -2156,8 +2156,8 @@ if class == "DRUID" then
 	options.args.stat.args.spi.args.heal = { -- Improved Tree of Life (Rank 3) - 3,24
 		type = 'toggle',
 		width = "full",
-		name = L["Show Healing"].." ("..GetSpellInfo(48537)..")",                
-		desc = L["Show Healing from Spirit"].." ("..GetSpellInfo(48537)..")",    
+		name = L["Show Healing"].." ("..GetSpellInfo(48537)..")",
+		desc = L["Show Healing from Spirit"].." ("..GetSpellInfo(48537)..")",
 		arg = "showHealingFromSpi",
 		get = getProfileOption,
 		set = setProfileOptionAndClearCache,
@@ -2418,17 +2418,17 @@ function RatingBuster:SetupOptions()
 	-- Inject profile options
 	options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	options.args.profile.order = -2
-	
+
 	-- Add dual-spec support
 	local LibDualSpec = LibStub("LibDualSpec-1.0", true)
 	if LibDualSpec then
 		LibDualSpec:EnhanceDatabase(self.db, "RatingBuster")
 		LibDualSpec:EnhanceOptions(options.args.profile, self.db)
 	end
-	
+
 	-- Register options table
 	AceConfig:RegisterOptionsTable("RatingBuster", options, {"rb", "ratingbuster"})
-	
+
 	-- Setup Blizzard option frames
 	self.optionsFrames = {}
 	-- The ordering here matters, it determines the order in the Blizzard Interface Options
@@ -2508,11 +2508,11 @@ function RatingBuster:OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-	
+
 	profileDB = self.db.profile
 
 	self:SetupOptions()
-	
+
 	-- Hook ShoppingTooltips to enable options to Hide Blizzard Item Comparisons
 	HookSetHyperlinkCompareItem(ShoppingTooltip1)
 	HookSetHyperlinkCompareItem(ShoppingTooltip2)
@@ -2659,7 +2659,7 @@ function RatingBuster.ProcessTooltip(tooltip, name, link, ...)
 		processedParry = 0
 		processedMissed = 0
 	end
-	
+
 	if isModifierKeyDown[profileDB.sumGem2Toggle] and isModifierKeyDown[profileDB.sumGem2Toggle]() then
 		EmptySocketLookup[EMPTY_SOCKET_RED] = "sumGemRed2"
 		EmptySocketLookup[EMPTY_SOCKET_YELLOW] = "sumGemYellow2"
@@ -2944,7 +2944,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						end
 						-- Shaman: Mental Quickness (Rank 3) - 2,15
 						-- Paladin: Sheath of Light
-						if profileDB.showSpellDmgFromStr then 
+						if profileDB.showSpellDmgFromStr then
 							local mod = StatLogic:GetStatMod("MOD_AP") * StatLogic:GetStatMod("MOD_SPELL_DMG")
 							local effect = (value * StatLogic:GetAPPerStr(class) * StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_AP")
 								+ value * StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_STR")) * mod
@@ -2956,7 +2956,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						end
 						-- Shaman: Mental Quickness (Rank 3) - 2,15
 						-- Paladin: Sheath of Light
-						if profileDB.showHealingFromStr then 
+						if profileDB.showHealingFromStr then
 							local mod = StatLogic:GetStatMod("MOD_AP") * StatLogic:GetStatMod("MOD_HEALING")
 							local effect = (value * StatLogic:GetAPPerStr(class) * StatLogic:GetStatMod("ADD_HEALING_MOD_AP")
 								+ value * StatLogic:GetStatMod("ADD_HEALING_MOD_STR")) * mod
@@ -3067,7 +3067,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						-- "ADD_SPELL_DMG_MOD_AP" -- Warlock: Demonic Knowledge
 						if profileDB.showSpellDmgFromSta then
 							local mod = StatLogic:GetStatMod("MOD_SPELL_DMG")
-							local effect = value * mod * (StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_STA") 
+							local effect = value * mod * (StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_STA")
 								+ StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_PET_STA") * StatLogic:GetStatMod("ADD_PET_STA_MOD_STA"))
 							if floor(abs(effect) * 10 + 0.5) > 0 then
 								tinsert(infoTable, (gsub(L["$value Dmg"], "$value", format("%+.1f", effect))))
@@ -3119,7 +3119,7 @@ function RatingBuster:ProcessText(text, tooltip)
 						end
 						if profileDB.showSpellDmgFromInt then
 							local mod = StatLogic:GetStatMod("MOD_SPELL_DMG")
-							local effect = value * mod * (StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_INT") 
+							local effect = value * mod * (StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_INT")
 								+ StatLogic:GetStatMod("ADD_SPELL_DMG_MOD_PET_INT") * StatLogic:GetStatMod("ADD_PET_INT_MOD_INT"))
 							if floor(abs(effect) * 10 + 0.5) > 0 then
 								tinsert(infoTable, (gsub(L["$value Dmg"], "$value", format("%+.1f", effect))))
@@ -3409,7 +3409,7 @@ local summaryCalcData = {
 		option = "sumAP",
 		name = "AP",
 		func = function(sum, sumType, link)
-			local ap = (sum["AP"] or 0) 
+			local ap = (sum["AP"] or 0)
 			 + (sum["STR"] * StatLogic:GetAPPerStr(class))
 			 + (sum["AGI"] * StatLogic:GetAPPerAgi(class))
 			if StatLogic:GetStatMod("ADD_AP_MOD_STA") ~= 0 then
@@ -4000,7 +4000,7 @@ local summaryCalcData = {
 		func = function(sum, sumType, link)
 			if GetBlockChance() == 0 then return 0 end
 			return ((sum["BLOCK_VALUE"] or 0) + ((sum["STR"] or 0) * StatLogic:GetBlockValuePerStr(class))) * StatLogic:GetStatMod("MOD_BLOCK_VALUE")
-				 
+
 		end,
 	},
 	-- Hit Avoidance Before DR - DEFENSE_RATING, MELEE_HIT_AVOID_RATING
@@ -4145,7 +4145,7 @@ if tpSupport == true then
 			TP:GetTankPoints(tpTable, TP_MELEE, forceShield)
 			-- Calculate tp difference
 			local diff = floor(tpTable.tankPoints[TP_MELEE]) - floor(TP.resultsTable.tankPoints[TP_MELEE])
-	
+
 			return diff
 		end,
 	})
@@ -4197,7 +4197,7 @@ if tpSupport == true then
 			TP:GetTankPoints(tpTable, TP_MELEE, forceShield)
 			-- Calculate tp difference
 			local diff = tpTable.totalReduction[TP_MELEE] - TP.resultsTable.totalReduction[TP_MELEE]
-			
+
 			return diff * 100
 		end,
 	})
@@ -4270,7 +4270,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 	-- Hide stat summary for equipped items
 	-- print("asdasd")
 	if profileDB.sumIgnoreEquipped and IsEquippedItem(link) then return end
-	
+
 	-- Show stat summary only for highest level armor type and items you can use with uncommon quality and up
 	if profileDB.sumIgnoreUnused then
 		local _, _, itemRarity, _, _, _, itemSubType, _, itemEquipLoc = GetItemInfo(link)
@@ -4298,7 +4298,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 			end
 		end
 	end
-	
+
 	-- Ignore enchants and gems on items when calculating the stat summarythen
 	local red, yellow, blue, meta
 	if isModifierKeyDown[profileDB.sumGem2Toggle] and isModifierKeyDown[profileDB.sumGem2Toggle]() then
@@ -4317,7 +4317,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 		blue = profileDB.sumGemBlue.gemID
 		meta = profileDB.sumGemMeta.gemID
 	end
-	
+
 	if profileDB.sumIgnoreEnchant then
 		link = StatLogic:RemoveEnchant(link)
 	end
@@ -4329,7 +4329,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 	else
 		link = StatLogic:BuildGemmedTooltip(link, red, yellow, blue, meta)
 	end
-	
+
 	-- Diff Display Style
 	-- Main Tooltip: tooltipLevel = 0
 	-- Compare Tooltip 1: tooltipLevel = 1
@@ -4369,7 +4369,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 		id = StatLogic:GetDiffID(link, profileDB.sumIgnoreEnchant, profileDB.sumIgnoreGems, red, yellow, blue, meta, profileDB.sumIgnorePris)
 		if not id then return end
 	end
-	
+
 	-- Check Cache
 	if cache[id] then
 		if #cache[id] == 0 then return end
@@ -4399,21 +4399,21 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 		end
 		return
 	end
-	
+
 	-------------------------
 	-- Build Summary Table --
 	local statData = {}
 	if not StatLogic:GetSum(link) then return end
 	statData.sum = StatLogic:GetSum(link)
 	-- end
-	
+
 	if not profileDB.calcSum then
 		statData.sum = nil
 	end
-	
+
 	-- Ignore bags
 	if not StatLogic:GetDiff(link) then return end
-	
+
 	-- Get Diff Data
 	if profileDB.calcDiff then
 		if profileDB.sumDiffStyle == "comp" then
@@ -4477,7 +4477,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 			tinsert(summary, entry)
 		end
 	end
-	
+
 	local calcSum = profileDB.calcSum
 	local calcDiff = profileDB.calcDiff
 	-- Weapon Skill - WEAPON_RATING
@@ -4532,7 +4532,7 @@ function RatingBuster:StatSummary(tooltip, name, link, ...)
 			end
 		end
 	end
-	
+
 	local showZeroValueStat = profileDB.showZeroValueStat
 	------------------------
 	-- Build Output Table --
