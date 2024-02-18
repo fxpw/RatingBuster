@@ -17,7 +17,7 @@
 ## X-Curse-Project-Name: RatingBuster
 ## X-Curse-Project-ID: rating-buster
 ## X-Curse-Repository-ID: wow/rating-buster/mainline
-
+## X-Sirus-Update: https://github.com/fxpw/RatingBuster/tree/master
 #####################
 # Non-Ace Libraries #
 #####################
